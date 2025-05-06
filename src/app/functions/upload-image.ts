@@ -3,6 +3,7 @@
 import { Readable } from 'node:stream'
 import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
+import { uploadFileToStorage } from '@/infra/storage/upload-file-to-storage'
 import { makeLeft, makeRight } from '@/shared/either'
 import type { Either } from '@/shared/either'
 import { z } from 'zod'
@@ -27,13 +28,20 @@ export async function uploadImage(
     return makeLeft(new InvalidFileFormat())
   }
 
+  const { url, key } = await uploadFileToStorage({
+    fileName,
+    contentStream,
+    contentType,
+    folder: 'images',
+  })
+
   await db.insert(schema.uploads).values({
     name: fileName,
-    remoteKey: fileName,
-    remoteUrl: fileName,
+    remoteKey: key,
+    remoteUrl: url,
   })
 
   return makeRight({
-    url: '',
+    url,
   })
 }
