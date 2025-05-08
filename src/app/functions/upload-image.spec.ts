@@ -3,6 +3,7 @@ import { Readable } from 'node:stream'
 import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
 import { isLeft, isRight, unwrapEither } from '@/shared/either'
+import { fakerPT_BR as faker } from '@faker-js/faker'
 import { eq } from 'drizzle-orm'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { InvalidFileFormat } from './errors/invalid-file-format'
@@ -11,10 +12,11 @@ import { uploadImage } from './upload-image'
 describe('upload image', () => {
   beforeAll(() => {
     vi.mock('@/infra/storage/upload-file-to-storage.ts', () => {
+      const fileName = faker.system.fileName()
       return {
         uploadFileToStorage: vi.fn().mockImplementation(() => ({
-          url: 'https://example.com/image.png',
-          key: 'images/12345678-1234-1234-1234-123456789012-image.png',
+          url: `https://example.com/${fileName}`,
+          key: `images/${fileName}`,
         })),
       }
     })

@@ -9,8 +9,6 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    
-    
     "test": "dotenv -e .env.test -- vitest run",
     "test:watch": "dotenv -e .env.test -- vitest",
     "db:migrate-test": "dotenv -e .env.test -- drizzle-kit migrate",
@@ -22,6 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@faker-js/faker": "^9.7.0",
     "@types/node": "^22.14.1",
     "dotenv-cli": "^8.0.0",
     "drizzle-kit": "^0.31.0",
@@ -37,6 +36,7 @@
     "@fastify/multipart": "^9.0.3",
     "@fastify/swagger": "^9.5.0",
     "@fastify/swagger-ui": "^5.2.2",
+    "dayjs": "^1.11.13",
     "drizzle-orm": "^0.43.1",
     "fastify": "^5.3.2",
     "fastify-type-provider-zod": "^4.0.2",
