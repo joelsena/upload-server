@@ -1,6 +1,4 @@
 import { uploadImage } from '@/app/functions/upload-image'
-import { db } from '@/infra/db'
-import { schema } from '@/infra/db/schemas'
 import { isRight, unwrapEither } from '@/shared/either'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -39,6 +37,7 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
         contentType: uploadFile.mimetype,
       })
 
+      // truncated é true quando o arquivo é maior que o limite definido
       if (uploadFile.file.truncated) {
         return reply.status(400).send({
           message: 'File size limit reached.',
