@@ -47,7 +47,7 @@ export const getUploadsRoute: FastifyPluginAsyncZod = async server => {
 
       const { uploads, total } = unwrapEither(result)
 
-      return reply.status(201).send({
+      return reply.status(200).send({
         uploads,
         total,
       })
